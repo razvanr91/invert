@@ -1,6 +1,6 @@
 :root {
-    --primary-color: rgb(55, 102, 146);
-    --secodary-color: rgb(247, 172, 34);
+    --primary-color: #353434;
+    --secodary-color: #F20909;
     --dark-color: rgb(65, 63, 63);
     --white-color: rgb(225, 236, 229);
 }
@@ -37,7 +37,6 @@ i {
 
 footer i:hover {
     opacity: 0.9;
-    color: var(--secodary-color);
 }
 
 .bsicon {
