@@ -1,12 +1,30 @@
+// get all the elements that we need
+let stringInputField = document.getElementById("userString");
+
+let messageElement = document.getElementById("message");
+
+let alertElement = document.getElementById("alert");
+
 // get the string from the input
 function getValue() {
 
-    document.getElementById("alert").classList.add("invisible");
+    alertElement.classList.add("invisible");
 
-    let userInput = document.getElementById("userString").value;
-    let invertString = reverseString(userInput);
+    let userInput = stringInputField.value;
 
-    displayString(invertString);
+    if (!userInput) {
+        messageElement.innerHTML =
+            `
+                You must enter a string to reverse...
+            `;
+
+        alertElement.classList.remove("invisible");
+
+    } else {
+        let invertString = reverseString(userInput);
+        displayString(userInput, invertString);
+    }
+
 }
 
 
@@ -23,13 +41,27 @@ function reverseString(stringToReverse) {
 
 
 // display the reverse string
-function displayString(invertString) {
+function displayString(userInput, invertString) {
 
     // write to the page
-    document.getElementById("message").innerHTML = `${invertString}`;
+    messageElement.innerHTML =
+        `
+            Original text : <br>${userInput}
+            <hr>
+            Inverted text : <br>${invertString}
+        `;
 
     // show the alert box
-    document.getElementById("alert").classList.remove("invisible");
+    alertElement.classList.remove("invisible");
 }
 
 document.getElementById("btnSubmit").addEventListener("click", getValue);
+
+// in case we press enter
+document.getElementById("reverseForm").addEventListener("submit", e => {
+    e.preventDefault();
+    getValue();
+
+    // reset the input to an empty string
+    document.getElementById("userString").value = ""
+})

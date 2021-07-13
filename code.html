@@ -42,7 +42,7 @@
                         <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://github.com/razvanr91/JsSiteTemplate" target="_blank" class="nav-link">Git
+                        <a href="https://github.com/razvanr91/invert" target="_blank" class="nav-link">Git
                             Repo</a>
                     </li>
                     <li class="nav-item">
@@ -60,16 +60,145 @@
                 <div class="col-lg-8">
                     <!-- Prism does not stack well -->
                     <pre ref="pre"><code class="language-javascript line-numbers" ref="code">
-                        //Call Hello World
-                        function HelloWorld() {
-                            alert("Hello World");
+                        // get all the elements that we need
+                        let stringInputField = document.getElementById("userString");
+
+                        let messageElement = document.getElementById("message");
+
+                        let alertElement = document.getElementById("alert");
+
+                        // get the string from the input
+                        function getValue() {
+
+                            alertElement.classList.add("invisible");
+
+                            let userInput = stringInputField.value;
+
+                            if (!userInput) {
+                                messageElement.innerHTML =
+                                    `
+                                        You must enter a string to reverse...
+                                    `;
+
+                                alertElement.classList.remove("invisible");
+
+                            } else {
+                                let invertString = reverseString(userInput);
+                                displayString(userInput, invertString);
+                            }
+
                         }
+
+
+                        // reverse the string
+                        function reverseString(stringToReverse) {
+                            let reversedString = [];
+
+                            for (let i = stringToReverse.length - 1; i >= 0; i--) {
+                                reversedString += stringToReverse[i];
+                            }
+
+                            return reversedString.toString();
+                        }
+
+
+                        // display the reverse string
+                        function displayString(userInput, invertString) {
+
+                            // write to the page
+                            messageElement.innerHTML =
+                                `
+                                    Original text : <br>${userInput}
+                                    <hr>
+                                    Inverted text : <br>${invertString}
+                                `;
+
+                            // show the alert box
+                            alertElement.classList.remove("invisible");
+                        }
+
+                        document.getElementById("btnSubmit").addEventListener("click", getValue);
+
+                        // in case we press enter
+                        document.getElementById("reverseForm").addEventListener("submit", e => {
+                            e.preventDefault();
+                            getValue();
+
+                            // reset the input to an empty string
+                            document.getElementById("userString").value = ""
+                        })
                     </code></pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structured in one function</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that display an alert with the "Hello World" message</p>
+                    <h5 class="display-7 border-bottom border-2 py-2 text-center">The Code is structured in three
+                        functions</h5>
+                    <div class="row border-bottom border-2">
+                        <h5 class="display-10">getValue</h5>
+                        <p class="lead fs-6">
+                            This is the main function that in wich we remove the class <span
+                                class="fw-bold">.invisible</span>
+                            from the <span class="fw-bold">.alert</span> div.
+                            After, we get the value from the <span class="fw-bold">input</span>
+                            with the id <span class="fw-bold">#userString</span> and save it to a variable.
+                            <br>After we get the value, we use a <span class="fw-bold">if statement</span> to
+                            check if the string is empty.
+                            If we see that it is empty, we post a message asking
+                            the user to enter a string, after wich we remove
+                            the <span class="fw-bold">.invisible</span> class from the <span
+                                class="fw-bold">.alert</span>
+                            div.
+                            <br>
+                            If not, we rerverse it using the <span class="fw-bold">reverseString</span>
+                            function and save it to another variable.
+                            In the end, we call <span class="fw-bold">displayString</span> function in order
+                            to render the result to the page.
+                        </p>
+                    </div>
+                    <div class="row border-bottom border-2 mt-2">
+                        <h5 class="display-10">reverseString</h5>
+                        <p class="lead fs-6">
+                            First, we create a new empty <span class="fw-bold">array</span>.
+                            After, we use a <span class="fw-bold">for loop</span> to loop through
+                            <span class="fw-bold">stringToReverse</span> variable starting from the last
+                            <span class="fw-bold">char</span> and adding it as the first element of our array.
+                            <br>In the end, we return the <span class="fw-bold">reversedString</span> array as a new
+                            string, using the <span class="fw-bold">.toString</span> method.
+                        </p>
+                    </div>
+                    <div class="row border-bottom border-2 mt-2">
+                        <h5 class="display-10">displayString</h5>
+                        <p class="lead fs-6">
+                            First, we get the element with the <span class="fw-bold">#message</span> id
+                            and we use the <span class="fw-bold">.innerHTML</span> property and the <span
+                                class="fw-bold">template string</span>
+                            to add the <span class="fw-bold">invertedString</span> to the page.<br>
+                            Lastly, we get the element with the <span class="fw-bold">#alert</span> id, and using
+                            the <span class="fw-bold">.classList</span> property and the <span
+                                class="fw-bold">.remove</span> method
+                            to get rid of the <span class="fw-bold">.invisible</span> class in order to
+                            make the element visible.
+                        </p>
+                    </div>
+                    <row class="row mt-2 border-bottom border-2 mt-2">
+                        <p class="lead fs-6">
+                            We add a <span class="fw-bold">eventListener</span> to the button with the
+                            <span class="fw-bold">#btnSubmit</span> id in which we call the <span
+                                class="fw-bold">getValue</span> function
+                        </p>
+                    </row>
+                    <row class="row mt-2">
+                        <p class="lead fs-6">
+                            We add a <span class="fw-bold">eventListener</span> to the form with the
+                            <span class="fw-bold">#reverseForm</span> id in which we take an <span
+                                class="fw-bold">e</span>
+                            parameter wich points to the <span class="fw-bold">event</span> that has taken place.
+                            Then using the <span class="fw-bodl">e</span> parameter, we call the
+                            <span class="fw-bold">.preventDefault</span> method that prevents the form to take its
+                            default actions,
+                            and then we call the <span class="fw-bold">getValue</span> function.
+                            <br>Finally, we reset the <span class="fw-bold">input</span>.
+                        </p>
+                    </row>
                 </div>
             </div>
         </div>
