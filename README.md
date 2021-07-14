@@ -6,6 +6,6 @@ An app that reverses a string. See the magic.
 
 --Try it out--
 
-(img/invert/invertRedLogo.svg)
+[!invert logo](https://github.com/razvanr91/invert/blob/main/img/invert/logo_small.png)
 
 https://invert.netlify.app/
